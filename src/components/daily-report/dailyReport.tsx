@@ -52,6 +52,14 @@ const DailyReportPage: FC = () => {
     setSelectedUserId("");
   };
 
+  const calculateTotal=(field:string)=>{
+     let result = showData.reduce((a,c)=>{
+      console.log(a)
+      return a+(Number(c[field])??0)
+    },0)
+     return result
+  }
+
   return (
     <>
       <div className="p-4">
@@ -102,44 +110,73 @@ const DailyReportPage: FC = () => {
             <thead className="table-header-group">
               <tr className="border border-none table-row">
                 <th className="bg-gray-200 p-2 text-gray-600 font-bold border border-gray-300 text-left table-cell">
-                  Date
+                  SL NO.
                 </th>
                 <th className="bg-gray-200 p-2 text-gray-600 font-bold border border-gray-300 text-left table-cell">
-                  DAU Count
+                  Transaction Date
                 </th>
                 <th className="bg-gray-200 p-2 text-gray-600 font-bold border border-gray-300 text-left table-cell">
-                  MAU Count
+                  Kabbik Audio Ref. id
                 </th>
                 <th className="bg-gray-200 p-2 text-gray-600 font-bold border border-gray-300 text-left table-cell">
-                  New User
+                  City Bank Ref. id
                 </th>
                 <th className="bg-gray-200 p-2 text-gray-600 font-bold border border-gray-300 text-left table-cell">
-                  Old User
+                  Tran Amount
                 </th>
                 <th className="bg-gray-200 p-2 text-gray-600 font-bold border border-gray-300 text-left table-cell">
-                  Return User
+                  Bank Commission
                 </th>
                 <th className="bg-gray-200 p-2 text-gray-600 font-bold border border-gray-300 text-left table-cell">
-                  Total Hit
+                  Settlement Amount
                 </th>
                 <th className="bg-gray-200 p-2 text-gray-600 font-bold border border-gray-300 text-left table-cell">
-                  Revenue
+                  Status
                 </th>
                 <th className="bg-gray-200 p-2 text-gray-600 font-bold border border-gray-300 text-left table-cell">
-                  App Average Session (min)
+                  Type
                 </th>
                 <th className="bg-gray-200 p-2 text-gray-600 font-bold border border-gray-300 text-left table-cell">
-                  Streamming Average Session (min)
+                  Merchant Name
                 </th>
                 <th className="bg-gray-200 p-2 text-gray-600 font-bold border border-gray-300 text-left table-cell">
-                  Total Streamming Hour
+                  Type of Transaction
+                </th>
+              
+              </tr>
+              <tr className="border border-none table-row">
+                <th className="bg-gray-200 p-2 text-gray-600 font-bold border border-gray-300 text-left table-cell">
+                  Total
                 </th>
                 <th className="bg-gray-200 p-2 text-gray-600 font-bold border border-gray-300 text-left table-cell">
-                  Streamming Unique MSISDN
+                  
                 </th>
                 <th className="bg-gray-200 p-2 text-gray-600 font-bold border border-gray-300 text-left table-cell">
-                  Session Unique MSISDN
+                  
                 </th>
+                <th className="bg-gray-200 p-2 text-gray-600 font-bold border border-gray-300 text-left table-cell">
+                  
+                </th>
+                <th className="bg-gray-200 p-2 text-gray-600 font-bold border border-gray-300 text-left table-cell">
+                  {calculateTotal('amount')}
+                </th>
+                <th className="bg-gray-200 p-2 text-gray-600 font-bold border border-gray-300 text-left table-cell">
+                  {calculateTotal('bank_commission')}
+                </th>
+                <th className="bg-gray-200 p-2 text-gray-600 font-bold border border-gray-300 text-left table-cell">
+                 {calculateTotal('settlement_amount')}
+                </th>
+                <th className="bg-gray-200 p-2 text-gray-600 font-bold border border-gray-300 text-left table-cell">
+                  
+                </th>
+                <th className="bg-gray-200 p-2 text-gray-600 font-bold border border-gray-300 text-left table-cell">
+                  
+                </th>
+                <th className="bg-gray-200 p-2 text-gray-600 font-bold border border-gray-300 text-left table-cell">
+                </th>
+                <th className="bg-gray-200 p-2 text-gray-600 font-bold border border-gray-300 text-left table-cell">
+                </th>
+              
               </tr>
             </thead>
             <tbody className="table-row-group">
@@ -149,44 +186,37 @@ const DailyReportPage: FC = () => {
                   className="bg-white border border-none table-row"
                 >
                   <td className="p-2 border border-gray-500 text-gray-600 text-left table-cell">
+                    {index}
+                  </td>
+                  <td className="p-2 border border-gray-500 text-gray-600 text-left table-cell">
                     {moment(entry.date).format("DD-MM-YYYY")}
                   </td>
                   <td className="p-2 border border-gray-500 text-gray-600 text-left table-cell">
-                    {entry.dau_count}
+                    {entry.subscriptionReferenceId}
                   </td>
                   <td className="p-2 border border-gray-500 text-gray-600 text-left table-cell">
-                    {entry.mau_count}
+                    {entry.city_transection_id}
                   </td>
                   <td className="p-2 border border-gray-500 text-gray-600 text-left table-cell">
-                    {entry.new_user}
+                    {entry.amount}
                   </td>
                   <td className="p-2 border border-gray-500 text-gray-600 text-left table-cell">
-                    {entry.old_user}
+                    {entry.bank_commission}
                   </td>
                   <td className="p-2 border border-gray-500 text-gray-600 text-left table-cell">
-                    {entry.return_user}
+                    {entry.settlement_amount}
                   </td>
                   <td className="p-2 border border-gray-500 text-gray-600 text-left table-cell">
-                    {entry.total_hit}
+                    {entry.payment_status??"Failed"}
                   </td>
                   <td className="p-2 border border-gray-500 text-gray-600 text-left table-cell">
-                    {entry.revenue}
+                    {entry.refund?"REFUND":"PAY"}
                   </td>
                   <td className="p-2 border border-gray-500 text-gray-600 text-left table-cell">
-                    {Math.round((entry.average_session / 60) * 100) / 100}
+                    {entry.marchant}
                   </td>
                   <td className="p-2 border border-gray-500 text-gray-600 text-left table-cell">
-                    {Math.round((entry.streaming_average_session / 60) * 100) /
-                      100}
-                  </td>
-                  <td className="p-2 border border-gray-500 text-gray-600 text-left table-cell">
-                    {Math.round((entry.total_streaming / 3600) * 100) / 100}
-                  </td>
-                  <td className="p-2 border border-gray-500 text-gray-600 text-left table-cell">
-                    {entry.streaming_unique_msisdn}
-                  </td>
-                  <td className="p-2 border border-gray-500 text-gray-600 text-left table-cell">
-                    {entry.session_unique_msisdn}
+                    {"Account"}
                   </td>
                 </tr>
               ))}

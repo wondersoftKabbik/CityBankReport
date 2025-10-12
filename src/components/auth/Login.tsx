@@ -107,7 +107,7 @@ const Login: FC = () => {
                     </picture>
                   </div>
                 </div>
-                <h1 className="text-3xl font-semibold text-[#f16522]">
+                <h1 className="text-3xl font-semibold text-[#FD0002]">
                   City Touch CRM
                 </h1>
               </div>
@@ -138,7 +138,7 @@ const Login: FC = () => {
                 />
               </div>
               <div className="card-actions justify-end pt-4">
-                <button type="submit" className="btn text-white bg-[#f16522]" onClick={handleSubmit}>
+                <button type="submit" className="btn text-white bg-[#FD0002]" onClick={handleSubmit}>
                   Login
                 </button>
               </div>
