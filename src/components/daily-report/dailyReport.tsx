@@ -205,7 +205,7 @@ const DailyReportPage: FC = () => {
                     {index}
                   </td>
                   <td className="p-2 border border-gray-500 text-gray-600 text-left table-cell">
-                    {moment(entry.date).format("DD-MM-YYYY")}
+                    {moment(entry.created_at).format("DD-MM-YYYY")}
                   </td>
                   <td className="p-2 border border-gray-500 text-gray-600 text-left table-cell">
                     {entry.subscriptionReferenceId}
