@@ -1,16 +1,19 @@
 "use client";
 
-import { FC, useState } from "react";
+import { FC, RefObject, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { format } from "date-fns";
 import moment from "moment";
 import { Endpoint } from "@/utils/constants";
 import { getDataApi } from "@/services/api.service";
 import Swal from "sweetalert2";
+import { DownloadTableExcel } from 'react-export-table-to-excel';
+
 
 const DailyReportPage: FC = () => {
   const { push } = useRouter();
   const [showData, setShowData] = useState([]);
+  const tableRef=useRef<HTMLTableElement>(null);
   const [startDate, setStartDate] = useState<string>(
     format(new Date(), "yyyy-MM-dd")
   );
@@ -63,9 +66,22 @@ const DailyReportPage: FC = () => {
   return (
     <>
       <div className="p-4">
-        <h1 className="text-2xl text-[#FD0002] font-medium">
-          Daily Report List
-        </h1>
+       <div className="flex justify-between">
+          <h1 className="text-2xl text-[#FD0002] font-medium">
+            Daily Report List
+          </h1>
+          <div className="px-3 py-1 border-1 border-gray-500 rounded-[4px] cursor-pointer">
+            <DownloadTableExcel
+              filename={`${startDate}TO${endDate}Payment Report`}
+              
+              sheet="users"
+              
+              currentTableRef={tableRef.current}
+            >
+              <button>Export to Excel</button>
+            </DownloadTableExcel>
+          </div>
+       </div>
 
         <div className="my-4 flex space-x-4 items-center justify-between">
           <div className="flex space-x-4 items-center w-full">
@@ -106,7 +122,7 @@ const DailyReportPage: FC = () => {
           </button>
         </div>
         <div className="overflow-x-auto">
-          <table className="min-w-full border-collapse table">
+          <table ref={tableRef} className="min-w-full border-collapse table">
             <thead className="table-header-group">
               <tr className="border border-none table-row">
                 <th className="bg-gray-200 p-2 text-gray-600 font-bold border border-gray-300 text-left table-cell">
